@@ -40,7 +40,7 @@ ARG PYTHON_MAJOR_VERSION
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
     ca-certificates=20210119 \
-    git=1:2.30.2-1 \
+    git=1:2.20.1-2+deb10u8 \
     python3=${PYTHON_MAJOR_VERSION}.2-3 \
     python3-distutils=${PYTHON_MAJOR_VERSION}.2-1 \
   && apt-get clean \
