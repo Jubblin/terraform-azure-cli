@@ -17,5 +17,5 @@ jobs:
 
       - name: Save branch name as env var
         run: |
-          echo ${{ needs.load_supported_versions.outputs.get_versions }}
-          echo ${{ job.load_supported_versions.outputs.get_versions }}
+          echo ${{ needs.load_versions.outputs.get_versions }}
+          echo ${{ job.load_versions.outputs.get_versions }}
