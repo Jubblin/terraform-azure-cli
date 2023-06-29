@@ -8,4 +8,4 @@ RUN apk update
 RUN apk add bash py-pip
 RUN apk add --virtual=build gcc libffi-dev musl-dev openssl-dev python3-dev make
 RUN pip install --upgrade pip
-RUN pip install azure-cli==${AZURE_CLI_VERSION} && apk del --purge build 
+RUN pip install azure-cli==${AZ_VERSION} && apk del --purge build 
