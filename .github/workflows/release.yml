@@ -47,12 +47,6 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v3
 
-      - name: Get and save release tag
-        run: echo "RELEASE_TAG=${GITHUB_REF##*/}" >> $GITHUB_ENV
-
-      - name: Build and save image release tag
-        run: echo "IMAGE_RELEASE_TAG=release-${RELEASE_TAG}_terraform-${{ matrix.tf_version }}_azcli-${{ matrix.azcli_version }}" >> $GITHUB_ENV
-
       # Install the cosign tool except on PR
       # https://github.com/sigstore/cosign-installer
       - name: Install cosign
@@ -83,6 +77,12 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
       
+      - name: Get and save release tag
+        run: echo "RELEASE_TAG=${GITHUB_REF##*/}" >> $GITHUB_ENV
+
+      - name: Build and save image release tag
+        run: echo "IMAGE_RELEASE_TAG=release-${{ steps.meta.outputs.tags }}_terraform-${{ matrix.tf_version }}_azcli-${{ matrix.azcli_version }}" >> $GITHUB_ENV
+
       - name: view tags
         id: view_tags
         run: |
