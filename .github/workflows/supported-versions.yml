@@ -5,10 +5,10 @@ on:
     outputs:
       get_versions:
         description: "Matrix of supported versions"
-        value: ${{ jobs.load_supported_versions.outputs.versions }}
+        value: ${{ jobs.get.outputs.versions }}
 
 jobs:
-  load_supported_versions:
+  get:
     runs-on: ubuntu-20.04
 
     outputs:
@@ -26,3 +26,7 @@ jobs:
           SUPPORTED_VERSIONS="${SUPPORTED_VERSIONS//$'\n'/%0A}"
           SUPPORTED_VERSIONS="${SUPPORTED_VERSIONS//$'\r'/%0D}"
           echo "{matrix}=${SUPPORTED_VERSIONS}" >> $GITHUB_OUTPUT
+
+      - name: Display Versions
+        id: show
+        run: echo ${{ steps.set-matrix.outputs.matrix }}
