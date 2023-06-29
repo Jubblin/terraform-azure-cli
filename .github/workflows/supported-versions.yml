@@ -2,7 +2,10 @@ name: Load Supported Versions
 
 on:
   workflow_call:
-
+    outputs:
+      matrix:
+        description: "Matrix of supported versions"
+        value: ${{ jobs.load_supported_versions.outputs.matrix }}
 jobs:
   load_supported_versions:
     runs-on: ubuntu-20.04

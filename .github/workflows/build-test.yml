@@ -9,7 +9,7 @@ on:
       - "**"
     branches:
       - "**"
-      - "!master"
+      - "!main"
     paths:
       - "Dockerfile"
       - "supported_versions.json"
@@ -27,7 +27,6 @@ env:
 jobs:
   load_supported_versions:
     uses: ./.github/workflows/supported-versions.yml
-
 
   build:
     runs-on: ubuntu-20.04
