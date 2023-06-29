@@ -19,27 +19,12 @@ on:
       - ".github/workflows/build-test.yml"
 
 env:
-  IMAGE_NAME: "terraform-azure-cli"
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
   load_supported_versions:
-    runs-on: ubuntu-20.04
+    uses: ./.github/workflows/supported-versions.yml
 
-    outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
-
-    steps:
-      - name: Check out the repo
-        uses: actions/checkout@v3
-
-      - name: Save supported versions as output
-        id: set-matrix
-        run: |
-          SUPPORTED_VERSIONS=$(cat ./supported_versions.json)
-          SUPPORTED_VERSIONS="${SUPPORTED_VERSIONS//'%'/%25}"
-          SUPPORTED_VERSIONS="${SUPPORTED_VERSIONS//$'\n'/%0A}"
-          SUPPORTED_VERSIONS="${SUPPORTED_VERSIONS//$'\r'/%0D}"
-          echo "{matrix}=${SUPPORTED_VERSIONS}" >> $GITHUB_OUTPUT
 
   build:
     runs-on: ubuntu-20.04

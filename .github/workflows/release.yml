@@ -10,28 +10,16 @@ on:
       - "master"
     paths:
       - "supported_versions.json"
+
 env:
+  # Use docker.io for Docker Hub if empty
   REGISTRY: ghcr.io
-  
+  # github.repository as <account>/<repo>
+  IMAGE_NAME: ${{ github.repository }}
+
 jobs:
   load_supported_versions:
-    runs-on: ubuntu-20.04
-
-    outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
-
-    steps:
-      - name: Check out the repo
-        uses: actions/checkout@v3
-
-      - name: Save supported versions as output
-        id: set-matrix
-        run: |
-          SUPPORTED_VERSIONS=$(cat ./supported_versions.json)
-          SUPPORTED_VERSIONS="${SUPPORTED_VERSIONS//'%'/%25}"
-          SUPPORTED_VERSIONS="${SUPPORTED_VERSIONS//$'\n'/%0A}"
-          SUPPORTED_VERSIONS="${SUPPORTED_VERSIONS//$'\r'/%0D}"
-          echo "{matrix}=${SUPPORTED_VERSIONS}" >> $GITHUB_OUTPUT
+    uses: ./.github/workflows/supported-versions.yml
 
   build_push_release:
     runs-on: ubuntu-20.04
@@ -41,7 +29,7 @@ jobs:
       # This is used to complete the identity challenge
       # with sigstore/fulcio when running outside of PRs.
       id-token: write
-      
+
     needs:
       - load_supported_versions
 
@@ -81,7 +69,7 @@ jobs:
         uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-      
+
       - name: Get and save release tag
         run: echo "RELEASE_TAG=${GITHUB_REF##*/}" >> $GITHUB_ENV
 
