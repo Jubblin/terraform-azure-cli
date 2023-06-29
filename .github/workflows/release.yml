@@ -34,7 +34,7 @@ jobs:
       - load_supported_versions
 
     strategy:
-      matrix: ${{ fromJSON(needs.load_supported_versions.outputs.matrix) }}
+      matrix: ${{ fromJSON(needs.load_supported_versions.outputs.get_versions) }}
 
     steps:
       - name: Check out the repo

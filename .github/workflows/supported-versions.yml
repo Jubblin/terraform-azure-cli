@@ -3,15 +3,16 @@ name: Load Supported Versions
 on:
   workflow_call:
     outputs:
-      matrix:
+      get_versions:
         description: "Matrix of supported versions"
-        value: ${{ jobs.load_supported_versions.outputs.matrix }}
+        value: ${{ jobs.load_supported_versions.outputs.versions }}
+
 jobs:
   load_supported_versions:
     runs-on: ubuntu-20.04
 
     outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
+      versions: ${{ steps.set-matrix.outputs.matrix }}
 
     steps:
       - name: Check out the repo
