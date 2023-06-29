@@ -31,7 +31,7 @@ jobs:
           SUPPORTED_VERSIONS="${SUPPORTED_VERSIONS//'%'/%25}"
           SUPPORTED_VERSIONS="${SUPPORTED_VERSIONS//$'\n'/%0A}"
           SUPPORTED_VERSIONS="${SUPPORTED_VERSIONS//$'\r'/%0D}"
-          echo "::set-output name=matrix::${SUPPORTED_VERSIONS}"
+          echo "{matrix}=${SUPPORTED_VERSIONS}" >> $GITHUB_OUTPUT
 
   build_push_release:
     runs-on: ubuntu-20.04
