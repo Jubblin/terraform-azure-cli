@@ -29,4 +29,6 @@ jobs:
 
       - name: Display Versions
         id: show
-        run: echo ${{ steps.set-matrix.outputs.matrix }}
+        run: |
+          echo ${{ steps.set-matrix.outputs.matrix }}
+          echo ${{ env.matrix }}
