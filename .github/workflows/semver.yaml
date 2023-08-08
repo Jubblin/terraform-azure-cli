@@ -22,8 +22,10 @@ jobs:
           branch: main
 
       - name: Create Release
+        id: release-action
         uses: ncipollo/release-action@v1
         with:
+          commit: ${{ github.ref.name }}
           allowUpdates: true
           draft: true
           makeLatest: true
@@ -31,4 +33,3 @@ jobs:
           body: Changelog Contents
           token: ${{ github.token }}
           # tag: ${{ steps.semver.outputs.next }}
-          commit: ${{ github.ref.name }}
