@@ -31,4 +31,4 @@ jobs:
           body: Changelog Contents
           token: ${{ github.token }}
           tag: ${{ steps.semver.outputs.next }}
-          commit: ${{ github.ref }}
+          commit: ${{ GITHUB_REF_NAME }}
