@@ -30,3 +30,4 @@ jobs:
           name: ${{ steps.semver.outputs.next }}
           body: Changelog Contents
           token: ${{ github.token }}
+          tag: ${{ steps.semver.outputs.next }}
